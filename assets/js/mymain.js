@@ -14,7 +14,7 @@ class myHeader extends HTMLElement {
                 <div class="profile-section pt-3 pt-lg-0">
                     <img class="profile-image mb-3 rounded-circle mx-auto" src="assets/images/profile.jpg" alt="image">
 
-                    <div class="bio mb-3">My name is LIANG, Yuchen, you can call me Eric. I am from Beijing and now is based in Hong Kong. I am now a university student at HKUST.<br><a href="about.html">Learn more about me</a></div>
+                    <div class="bio mb-3">My name is LIANG, Yuchen (梁宇辰), you can call me Eric. I am from Beijing and now is based in Hong Kong. I am now a university student at HKUST.<br><a href="aboutme.html" >Learn more about me</a></div>
                     <!--//bio-->
                     <!-- <ul class="social-list list-inline py-3 mx-auto">
                         <li class="list-inline-item"><a href="#"><i class="fab fa-twitter fa-fw"></i></a></li>
@@ -74,8 +74,8 @@ class myFooter extends HTMLElement {
         this.innerHTML = `
         <footer class="footer text-center py-2 theme-bg-dark">
             
-            <small class="copyright">© 2022 LYC, Designed with <i class="fas fa-heart" style="color: #fb866a;"></i> by <a href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers</small><br>
-            <small><a href="https://beian.miit.gov.cn/">京ICP备2020037052号-1</a></small><br>
+            <small class="copyright">© 2022 LYC, Designed with <i class="fas fa-heart" style="color: #fb866a;"></i> by <a href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers | </small>
+            <small><a href="https://beian.miit.gov.cn/">京ICP备2020037052号-1</a> | </small>
             <small><img src="http://www.lyceric.com/wp-content/uploads/2021/02/cafa210b-8190-6c40-baf5-db3ab57ef252.png" class="wp-image-67 style-992-image style-local-176-f31-image" alt="">
                 京公网安备 11010802033071 号
             </small>
