@@ -41,6 +41,9 @@ class myHeader extends HTMLElement {
                     <li class="nav-item">
                         <a class="nav-link" href="aboutme.html"><i class="fas fa-user fa-fw mr-2"></i>About Me</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html"><i class="fas fa-phone fa-fw mr-2"></i>Contact Me</a>
+                    </li>
                 </ul>
 
                 <!-- <div class="my-2 my-md-3">
