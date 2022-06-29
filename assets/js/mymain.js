@@ -79,7 +79,7 @@ class myFooter extends HTMLElement {
             
             <small class="copyright">© 2022 LYC, Designed with <i class="fas fa-heart" style="color: #fb866a;"></i> by <a href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers | </small>
             <small><a href="https://beian.miit.gov.cn/">京ICP备2020037052号-1</a> | </small>
-            <small><img src="http://www.lyceric.com/wp-content/uploads/2021/02/cafa210b-8190-6c40-baf5-db3ab57ef252.png" class="wp-image-67 style-992-image style-local-176-f31-image" alt="">
+            <small><img src="assets/images/ICP.png" class="wp-image-67 style-992-image style-local-176-f31-image" alt="">
                 京公网安备 11010802033071 号
             </small>
             <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can buy the commercial license via our website: themes.3rdwavemedia.com */-->
