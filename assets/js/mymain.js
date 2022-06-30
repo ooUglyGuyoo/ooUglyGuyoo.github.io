@@ -14,7 +14,7 @@ class myHeader extends HTMLElement {
                 <div class="profile-section pt-3 pt-lg-0">
                     <img class="profile-image mb-3 rounded-circle mx-auto" src="assets/images/profile.jpg" alt="image">
 
-                    <div class="bio mb-3">My name is LIANG, Yuchen (梁宇辰), you can call me Eric. I am from Beijing and now is based in Hong Kong. I am now a university student at HKUST.<br><a href="aboutme.html" >Learn more about me</a></div>
+                    <div class="bio mb-3">My name is LIANG, Yuchen (梁宇辰) Eric. Currently a student at HKUST.<br><a href="aboutme.html" >Learn more about me</a></div>
                     <!--//bio-->
                     <!-- <ul class="social-list list-inline py-3 mx-auto">
                         <li class="list-inline-item"><a href="#"><i class="fab fa-twitter fa-fw"></i></a></li>
@@ -36,7 +36,7 @@ class myHeader extends HTMLElement {
                         <a class="nav-link" href="ugschool.html"><i class="fas fa-bookmark fa-fw mr-2"></i>UG School Projects</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="others.html"><i class="fas fa-bookmark fa-fw mr-2"></i>Other Projects</a>
+                        <a class="nav-link" href="otherprojects.html"><i class="fas fa-bookmark fa-fw mr-2"></i>Other Projects</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="aboutme.html"><i class="fas fa-user fa-fw mr-2"></i>About Me</a>
