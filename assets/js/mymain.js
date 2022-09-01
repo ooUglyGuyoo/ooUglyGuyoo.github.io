@@ -77,15 +77,16 @@ class myFooter extends HTMLElement {
     connectedCallback() {
         this.innerHTML = `
         <body>
-            <footer class="footer text-center py-2 theme-bg-dark">
-                <div class="container">
-                    <span class="copyright">© 2022 LYC, Created by Yuchen Eric LIANG using template designed with <i class="fas fa-heart" style="color: #fb866a;"></i> by <a href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers </span>
+            <footer class="footer text-center theme-bg-dark">
+                <small class="copyright">© 2022 LYC, Created by Yuchen Eric LIANG using template designed with <i class="fas fa-heart" style="color: #fb866a;"></i> by <a href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers </small>
+                <!-- <div> -->
+                    <!-- <small class="copyright">© 2022 LYC, Created by Yuchen Eric LIANG using template designed with <i class="fas fa-heart" style="color: #fb866a;"></i> by <a href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers </small> -->
                     <!-- <small><a href="https://beian.miit.gov.cn/">京ICP备2020037052号-1</a> | </small>
                     <small><img src="assets/images/ICP.png" class="wp-image-67 style-992-image style-local-176-f31-image" alt="">
                         京公网安备 11010802033071 号
                     </small> -->
                     <!--/* This template is released under the Creative Commons Attribution 3.0 License. Please keep the attribution link below when using for your own project. Thank you for your support. :) If you'd like to use the template without the attribution, you can buy the commercial license via our website: themes.3rdwavemedia.com */-->
-                </div>
+                <!-- </div> -->
 
             </footer>
         </body>
