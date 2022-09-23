@@ -34,13 +34,13 @@ class myHeader extends HTMLElement {
                         <a class="nav-link" href="index.html"><i class="fas fa-home fa-fw mr-2"></i> Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="aboutme.html"><i class="fas fa-user fa-fw mr-2"></i>About Me</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="ugschool.html"><i class="fas fa-bookmark fa-fw mr-2"></i>UG School Projects</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="otherprojects.html"><i class="fas fa-bookmark fa-fw mr-2"></i>Other Projects</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="aboutme.html"><i class="fas fa-user fa-fw mr-2"></i>About Me</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="contact.html"><i class="fas fa-phone fa-fw mr-2"></i>Contact Me</a>
