@@ -31,19 +31,19 @@ class myHeader extends HTMLElement {
 
                 <ul class="navbar-nav flex-column text-left">
                     <li class="nav-item">
-                        <a class="nav-link" href="index.html"><i class="fas fa-home fa-fw mr-2"></i> Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="index.html"><i class="fas fa-home fa-fw mr-2"></i>Home<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="aboutme.html"><i class="fas fa-user fa-fw mr-2"></i>About Me</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="ugschool.html"><i class="fas fa-bookmark fa-fw mr-2"></i>UG School Projects</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="otherprojects.html"><i class="fas fa-bookmark fa-fw mr-2"></i>Other Projects</a>
+                        <a class="nav-link" href="projects.html"><i class="fas fa-bookmark fa-fw mr-2"></i>Projects</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="contact.html"><i class="fas fa-phone fa-fw mr-2"></i>Contact Me</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cycling.html"><i class="fa fa-bicycle fa-fw mr-2"></i>Cycling</a>
                     </li>
                 </ul>
 
@@ -74,7 +74,7 @@ customElements.define('my-head', myHead)
 
 
 class myFooter extends HTMLElement {
-    
+
     connectedCallback() {
         this.innerHTML = `
             <footer class="footer text-center theme-bg-dark">
