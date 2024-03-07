@@ -78,7 +78,7 @@ class myFooter extends HTMLElement {
     connectedCallback() {
         this.innerHTML = `
             <footer class="footer text-center theme-bg-dark">
-                <small class="copyright">© 2022 LYC, Created by Yuchen Eric LIANG using template designed by <a href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a></small>
+                <small class="copyright">© 2022-2024 LYC, Created by Yuchen Eric LIANG using template designed by <a href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a></small>
                 <!-- <div> -->
                     <!-- <small class="copyright">© 2022 LYC, Created by Yuchen Eric LIANG using template designed with <i class="fas fa-heart" style="color: #fb866a;"></i> by <a href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers </small> -->
                     <!-- <small><a href="https://beian.miit.gov.cn/">京ICP备2020037052号-1</a> | </small>
