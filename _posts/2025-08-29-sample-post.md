@@ -16,7 +16,9 @@ toc_icon: "file-alt"           # Optional: Add an icon
 ---
 
 ## Introduction
-When I look back at the journey of creating my personal website, it is really a complicated process. I start with using Wix and Wordpress with a third-party hosting the web. Then I realized that I wanted more control and flexibility over my website. So I began to use GitHub Pages. But I am just too stupid and began to really write HTML files and CSS from scratch. and of course I struggled a lot with creating new post and got really tired of creating new blogs and posts with HTML. Then I switch to Notion
+When I look back at the journey of creating my personal website, it is really a complicated process. I start with using Wix and Wordpress with a third-party hosting the web. Then I realized that I wanted more control and flexibility over my website. So I began to use GitHub Pages. But I am just too stupid and began to really write HTML files and CSS from scratch. and of course I struggled a lot with creating new post and got really tired of creating new blogs and posts with HTML. Then I switch to Notion where I don't need to write code. but notion has its own limitations and I still need to find a way to export my notes and ideas into a more structured format for my website.
+
+Now I am back using Github Pages with Jekyll.
 
 ## Content on this website
 This website is of course a portfolio. It will contains all my projects, publications, and blogs. I might also include some personal notes and thoughts.
