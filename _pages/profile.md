@@ -14,14 +14,6 @@ toc_sticky: true
 author_profile: true
 ---
 
-## Skills
-
-| Categories    | Skill        | Level       |
-|:--------:|--------------|-------------|
-| Programming Languages | JavaScript   | ⭐⭐⭐⭐☆     |
-|                       | Python       | ⭐⭐⭐☆☆     |
-
-
 ## Educational Background
 
 ### Doctor of Philosophy (PhD) Student
@@ -141,3 +133,31 @@ in Science
 {% endcapture %}
 
 <div class="notice">{{ product-engineer-intern | markdownify }}</div>
+
+## Skills
+
+| Categories                  | Skill                   | Level |  |
+|-----------------------------|-------------------------|-------|-------------|
+| Mechanical Engineering      | Mechanical Design       | ⭐⭐⭐⭐☆ |             |
+|                             | SolidWorks              | ⭐⭐⭐⭐☆ |             |
+|                             | Fusion360               | ⭐⭐☆☆☆ |             |
+| Embedded System             | Arduino                 | ⭐⭐⭐⭐☆ |             |
+|                             | ESP32                   | ⭐⭐⭐☆☆ |             |
+|                             | STM32                   | ⭐⭐☆☆☆ |             |
+| Electronics                 | Soldering               | ⭐⭐⭐☆☆ |             |
+| Computer Science            | Python                  | ⭐⭐⭐☆☆ |             |
+|                             | C++                     | ⭐⭐☆☆☆ |             |
+| Illustration & Storytelling | Adobe PhotoShop         | ⭐⭐⭐☆☆ |             |
+|                             | Adobe Illustrator       | ⭐⭐⭐☆☆ |             |
+|                             | Adobe InDesign          | ⭐⭐⭐☆☆ |             |
+|                             | Adobe Premiere Pro      | ⭐⭐⭐☆☆ |             |
+|                             | Davinci Resolve         | ⭐⭐⭐☆☆ |             |
+| Robotics                    | Linux                   | ⭐⭐⭐☆☆ |             |
+|                             | ROS                     | ⭐⭐☆☆☆ |             |
+| Additive Manufacture        | GrabCad Print (PolyJet) | ⭐⭐⭐⭐☆ |             |
+|                             | Bambu Studio            | ⭐⭐⭐⭐☆ |             |
+|                             | Ultimaker Cura          | ⭐⭐⭐⭐☆ |             |
+|                             | PreForm (FormLab)       | ⭐⭐⭐⭐☆ |             |
+| Development & Cooperation   | Git                     | ⭐⭐⭐☆☆ |             |
+|                             | VS Code                 | ⭐⭐⭐☆☆ |             |
+|                             | Notion                  | ⭐⭐⭐⭐☆ |             |
