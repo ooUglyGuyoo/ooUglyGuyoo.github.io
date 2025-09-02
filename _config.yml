@@ -277,6 +277,7 @@ whitelist:
 category_archive:
   type: liquid
   path: /pages/categories/
+
 tag_archive:
   type: liquid
   path: /pages/tags/
@@ -316,7 +317,7 @@ collections:
 defaults:
   # _posts
   - scope:
-      path: ""
+      path: "_posts"
       type: posts
     values:
       layout: single
@@ -334,7 +335,7 @@ defaults:
       author_profile: true
   # _docs
   - scope:
-      path: ""
+      path: "_docs"
       type: docs
     values:
       layout: single
@@ -347,20 +348,21 @@ defaults:
         nav: "docs"
   # _projects
   - scope:
-      path: ""
+      path: "_projects"
       type: projects
     values:
       layout: single
       author_profile: true
-      share: true
-      comments: true
+      share: false
+      comments: false
   # _publications
   - scope:
-      path: ""
+      path: "_publications"
       type: publications
     values:
       layout: single
       author_profile: false
-      share: true
+      share: false
+
 
 

@@ -1,4 +1,5 @@
 ---
+title: Welcome to my website!
 layout: home
 author_profile: true
 classes: wide
@@ -14,16 +15,16 @@ My name is Yuchen LIANG (梁宇辰); you can call me Eric. As you might infer fr
 in Integrative Systems and Design (ISD)
 
 {% capture phd %}
-- 📍 Location
+- 📍 **Location**
     - [The HKUST 香港科技大学](https://hkust.edu.hk/), Hong Kong
     - [HKUST ISD 综合系统与设计学系](https://isd.hkust.edu.hk/), Hong Kong
-- ⌚ Duration
+- ⌚ **Duration**
     - Feb 2025 - Feb 2028
-- 🧾 Research Interest
+- 🧾 **Research Interest**
     - Soft Robotics, Soft Actuators, Artificial Muscles, Marine Robotics, Bio-inspired Robots
-- 👁️ Supervisor
+- 👁️ **Supervisor**
     - [Prof. Rob SCHARFF](https://facultyprofiles.hkust.edu.hk/profiles.php?profile=rob-scharff-scharffrbn)
 {% endcapture %}
 
-<div class="notice--info">{{ phd | markdownify }}</div>
+<div class="notice">{{ phd | markdownify }}</div>
 <div> <br> </div>

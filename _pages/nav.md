@@ -8,8 +8,8 @@ header:
   overlay_filter: "0.8"
   overlay_image: /assets/images/hkust.png
   actions:
-    - label: "Explore all documentations"
-      url: "/pages/collection/"
+    - label: "Explore all projects"
+      url: "/pages/projects/"
   # caption: "Photo credit: [**Unsplash**](https://unsplash.com)"
 excerpt: "Bacon ipsum dolor sit amet salami ham hock ham, hamburger corned beef short ribs kielbasa biltong t-bone drumstick tri-tip tail sirloin pork chop."
 intro:
