@@ -11,10 +11,10 @@ main:
   # - title: "Sitemap"
   #   url: /sitemap/
   - title: "Projects"
-    url: /pages/nav
+    url: /pages/nav/
 
-  - title: "Publications"
-    url: /pages/publications
+  - title: "Pubs & Awds"
+    url: /publications/
 
   - title: "News"
-    url: /pages/news
+    url: /news/

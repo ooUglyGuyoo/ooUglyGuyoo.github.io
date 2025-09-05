@@ -119,9 +119,6 @@ author:
   location         : "Hong Kong"
   email            : "yliangbk@connect.ust.hk"
   links:
-    - label: "Email"
-      icon: "fas fa-fw fa-envelope-square"
-      url: "mailto:yliangbk@connect.ust.hk"
     - label: "LinkedIn"
       icon: "fab fa-fw fa-linkedin-in"
       url: "https://www.linkedin.com/in/lyceric/"
@@ -131,7 +128,6 @@ author:
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
       url: "https://www.instagram.com/ycericliang/"
-    
 
 # Site Footer
 footer:
@@ -222,7 +218,7 @@ timezone: # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
 
 # Pagination with jekyll-paginate
-paginate: 5 # amount of posts to show
+paginate: 3 # amount of posts to show
 paginate_path: /page:num/
 
 # Pagination with jekyll-paginate-v2
@@ -326,6 +322,8 @@ defaults:
       comments: # true
       share: false
       related: true
+      sort_by: date
+      sort_order: reverse
   # _pages
   - scope:
       path: "_pages"
@@ -355,14 +353,17 @@ defaults:
       author_profile: true
       share: false
       comments: false
+      sort_order: reverse
   # _publications
   - scope:
       path: "_publications"
       type: publications
     values:
       layout: single
-      author_profile: false
+      author_profile: true
       share: false
+      sort_by: date
+      sort_order: reverse
 
 
 

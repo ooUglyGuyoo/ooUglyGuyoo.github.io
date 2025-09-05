@@ -9,7 +9,7 @@ header:
   overlay_image: /assets/images/hkust.png
   actions:
     - label: "Explore all projects"
-      url: "/pages/projects/"
+      url: "/projects/"
   # caption: "Photo credit: [**Unsplash**](https://unsplash.com)"
 excerpt: "Bacon ipsum dolor sit amet salami ham hock ham, hamburger corned beef short ribs kielbasa biltong t-bone drumstick tri-tip tail sirloin pork chop."
 intro:
@@ -64,7 +64,7 @@ research_projects:
     alt: "Academic Research Projects"
     title: "Academic Research Projects"
     excerpt: 'For recent years, most of the projects I participate in are research-focused, related to soft robotics. These project usually lead to publications in academic journals and conferences. '
-    url: "/pages/projects"
+    url: "/projects"
     btn_label: "Check all projects"
     btn_class: "btn--primary"
 
@@ -73,7 +73,7 @@ yp:
     alt: "Undergraduate Year Projects"
     title: "Undergraduate Year Projects"
     excerpt: 'The HKUST Integrative Systems and Design (ISD) program features three year-long, multi-disciplinary team projects, beginning in the second year and culminating in a company-sponsored final-year capstone project. These projects require students to apply their technical and design knowledge to solve real-world problems for industry partners, involving problem identification, idea generation, prototyping, testing, and implementation to develop innovative, human-centered solutions.'
-    url: "/pages/projects"
+    url: "/projects"
     btn_label: "Check all projects"
     btn_class: "btn--primary"
 
@@ -82,7 +82,7 @@ course:
     alt: "Course Projects"
     title: "Course Projects"
     excerpt: ''
-    url: "/pages/projects"
+    url: "/projects"
     btn_label: "Check all projects"
     btn_class: "btn--primary"
 
