@@ -24,6 +24,8 @@ sidebar:
 
 classes: wide
 
+tags: [Soft Robotics, Human-Robot Interaction, Art]
+
 gallery:
   - url: /assets/images/projects/soft-hand/DSC04851.jpg
     image_path: assets/images/projects/soft-hand/DSC04851.jpg
