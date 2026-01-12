@@ -1,0 +1,28 @@
+---
+title: "Reciprocal Touch: The Art of Connection"
+excerpt: "Our interactive soft robotic handshake device allowed users to exchange real-time handshakes through a pair of soft robotic hands. The installation engaged visitors, fostering unique connections through robotics and demonstrating the potential of human-machine interaction in social experiences."
+header:
+  image: /assets/images/projects/soft-hand/soft-hand-cover.png #
+  teaser: /assets/images/projects/soft-hand/soft-hand-group.jpg #
+sidebar:
+  - title: "Role"
+    text: "Participant"
+  - title: "Responsibilities"
+    text: "Mechanical Design, Exterior Design, Industrial Visualization."
+gallery:
+  - url: /assets/images/projects/soft-hand/DSC04851.jpg
+    image_path: assets/images/projects/soft-hand/DSC04851.jpg
+    # alt: "placeholder image 1"
+  - url: /assets/images/projects/soft-hand/DSC04986.jpg
+    image_path: assets/images/projects/soft-hand/DSC04986.jpg
+    # alt: "placeholder image 2"
+  - url: /assets/images/projects/soft-hand/DSC04993.jpg
+    image_path: assets/images/projects/soft-hand/DSC04993.jpg
+    # alt: "placeholder image 3"
+
+classes: wide
+---
+
+Our interactive soft robotic handshake device allowed users to exchange real-time handshakes through a pair of soft robotic hands. The installation engaged visitors, fostering unique connections through robotics and demonstrating the potential of human-machine interaction in social experiences.
+
+{% include gallery caption="" %}
