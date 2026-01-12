@@ -59,4 +59,6 @@ The long-term vision of the Trocomotor system includes:
 
 This project focuses on the Trocomotor Follower. The Follower is a high-powered, four-wheeled robot chassis equipped with a miniPC, high-resolution camera, and obstacle detection system (radar/ultrasonic sensors). It can haul up to 20 trolleys simultaneously and track AprilTags using its camera. Workers can attach the AprilTag to their scooters or to the rear of another trolley train.
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/YR0kP8xrZsE?si=MWTIRRGEjt26SlXZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 [Check Report](/assets/images/projects/trocomotor/ISDN3002_MEC_Final_Report.pdf){: .btn .btn--info}
