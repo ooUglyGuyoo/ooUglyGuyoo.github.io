@@ -6,7 +6,7 @@ header:
   teaser: /assets/images/projects/robomaster/6cf1af4d341d8954addf31e765b2735.jpg
 sidebar:
   - title: "Role"
-    text: "Participants"
+    text: "Captain & Mechanical Engineer"
   - title: "Responsibilities"
     text:
       "RoboMaster 2019 As Mechanical Engineer; RoboMaster 2020 As Captain & Mechanical Engineer"
