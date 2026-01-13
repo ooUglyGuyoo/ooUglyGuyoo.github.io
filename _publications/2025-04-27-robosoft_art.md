@@ -1,5 +1,6 @@
 ---
 title: "Reciprocal Touch: The Art of Connection"
+published_in: "2025 IEEE 8th International Conference on Soft Robotics (RoboSoft)"
 excerpt: "Our interactive soft robotic handshake device allowed users to exchange real-time handshakes through a pair of soft robotic hands. The installation engaged visitors, fostering unique connections through robotics and demonstrating the potential of human-machine interaction in social experiences."
 header:
   image: /assets/images/projects/soft-hand/soft-hand-cover.png
