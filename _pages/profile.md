@@ -105,7 +105,19 @@ in Science
 
 <div class="notice">{{ jhs | markdownify }}</div>
 
-## Internship & Working Experience
+## Internship, Working Experience & Community Service
+
+### Student Member of HKUST CPS
+
+{% capture student-member-cps %}
+- 📍 Served at
+  - Committee on Postgraduate Studies (CPS), University Senate, HKUST
+- ⌚ Duration
+  - Jan 2026 - Dec 2026
+- 🧾 [Terms of Reference](https://ccss.hkust.edu.hk/committee-postgraduate-studies)
+{% endcapture %}
+
+<div class="notice--info">{{ student-member-cps | markdownify }}</div>
 
 ### Product Engineer and Public Relations
 
@@ -133,6 +145,19 @@ in Science
 {% endcapture %}
 
 <div class="notice">{{ product-engineer-intern | markdownify }}</div>
+
+### Captain of RoboMaster team
+
+{% capture robomaster-captain %}
+- 📍 Served at
+  - HKUST RoboMaster Team ENTERPRIZE
+- ⌚ Duration
+  - Jun 2019 - Sep 2020
+- 🧾 Description
+  - Team Captain leading a team of 35 members, Mechanical Engineer for double shooting mechanism
+{% endcapture %}
+
+<div class="notice">{{ robomaster-captain | markdownify }}</div>
 
 ## Skills
 
