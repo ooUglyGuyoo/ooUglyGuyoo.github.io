@@ -1,6 +1,7 @@
 ---
 title: "MPhil Thesis: Proprioception of GRACE Artificial Muscle Utilizing Macro-bending Principle of Fiber Optics"
 published_in: "HKUST Electronic Theses Database"
+authors: "<u><b>Yuchen Liang</b></u>"
 excerpt: "This thesis presents a novel sensing approach for GRACE artificial muscles, integrating fiber optics and machine learning. By exploiting the macro bending loss of optical fibers, we developed a sensing mechanism that delivers accurate, real-time feedback on actuator performance. "
 header:
   image: /assets/images/publications/GRACE.png

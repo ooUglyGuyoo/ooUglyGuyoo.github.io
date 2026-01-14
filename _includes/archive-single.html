@@ -47,7 +47,12 @@
       </p>
     {% endif %}
 
-    
+    {% if post.authors %}
+      <p class="archive__item-excerpt" style="clear: left;">
+        <i class="fas fa-user fa-fw" aria-hidden="true"></i>
+        {{ post.authors }}
+      </p>
+    {% endif %}
 
     {% if post.excerpt and include.type == "grid"%}
       <p class="archive__item-excerpt" itemprop="description" style="clear: left;">
