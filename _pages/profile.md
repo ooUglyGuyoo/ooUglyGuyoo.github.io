@@ -105,7 +105,6 @@ in Science
 
 <div class="notice">{{ jhs | markdownify }}</div>
 
-<<<<<<< HEAD
 ## Teaching Assignments
 
 {% capture ta-emia2020-22-23-Spring %}
@@ -124,7 +123,7 @@ in Science
 
 {% capture ta-ISDN2400-23-24-Spring %}
 - ISDN 2400 - Physical Prototyping
-  - 📍Role: Teaching Assistant
+  - 📍Role: Helper
   - ⌚ Semester: 2023-2024 Spring
   - 🧾 Instructor: Rob SCHARFF
 {% endcapture %}
@@ -141,8 +140,6 @@ in Science
 <div class="notice">{{ ta-emia2020-23-24-Fall | markdownify }}</div>
 <div class="notice">{{ ta-emia2020-22-23-Spring | markdownify }}</div>
 
-## Internship & Working Experience
-=======
 ## Internship, Working Experience & Community Service
 
 ### Student Member of HKUST CPS
@@ -156,7 +153,6 @@ in Science
 {% endcapture %}
 
 <div class="notice--info">{{ student-member-cps | markdownify }}</div>
->>>>>>> 3867f6936216b1d91546f750fadb9d517ddb22a2
 
 ### Product Engineer and Public Relations
 
