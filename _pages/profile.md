@@ -121,6 +121,13 @@ in Science
   - 🧾 Instructor: Rong ZHANG
 {% endcapture %}
 
+{% capture ta-isdn4000r-23-24-Fall %}
+- ISDN 4000R - Introduction to Soft Robotics
+  - 📍Role: Helper
+  - ⌚ Semester: 2023-2024 Fall
+  - 🧾 Instructor: Rob SCHARFF
+{% endcapture %}
+
 {% capture ta-ISDN2400-23-24-Spring %}
 - ISDN 2400 - Physical Prototyping
   - 📍Role: Helper
@@ -135,8 +142,25 @@ in Science
   - 🧾 Instructor: Rob SCHARFF
 {% endcapture %}
 
+{% capture ta-isdn6830c-24-25-Fall %}
+- ISDN 6830C - Soft Robotics
+  - 📍Role: Teaching Assistant
+  - ⌚ Semester: 2024-2025 Fall
+  - 🧾 Instructor: Rob SCHARFF
+{% endcapture %}
+
+{% capture ta-ISDN5220-25-26-Fall %}
+- ISDN 5220 - Introduction to Marine Technology
+  - 📍Role: Teaching Assistant
+  - ⌚ Semester: 2025-2026 Fall
+  - 🧾 Instructor: Rob SCHARFF
+{% endcapture %}
+
+<div class="notice">{{ ta-ISDN5220-25-26-Fall | markdownify }}</div>
+<div class="notice">{{ ta-isdn6830c-24-25-Fall | markdownify }}</div>
 <div class="notice">{{ ta-ISDN2400-24-25-Spring | markdownify }}</div>
 <div class="notice">{{ ta-ISDN2400-23-24-Spring | markdownify }}</div>
+<div class="notice">{{ ta-isdn4000r-23-24-Fall | markdownify }}</div>
 <div class="notice">{{ ta-emia2020-23-24-Fall | markdownify }}</div>
 <div class="notice">{{ ta-emia2020-22-23-Spring | markdownify }}</div>
 
