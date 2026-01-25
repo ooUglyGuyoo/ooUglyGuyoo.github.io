@@ -105,6 +105,41 @@ in Science
 
 <div class="notice">{{ jhs | markdownify }}</div>
 
+## Teaching Assignments
+
+{% capture ta-emia2020-22-23-Spring %}
+- EMIA 2020 - Cross-disciplinary Design Thinking
+  - 📍Role: Teaching Assistant
+  - ⌚ Semester: 2022-2023 Spring
+  - 🧾 Instructor: Rong ZHANG
+{% endcapture %}
+
+{% capture ta-emia2020-23-24-Fall %}
+- EMIA 2020 - Cross-disciplinary Design Thinking
+  - 📍Role: Teaching Assistant
+  - ⌚ Semester: 2023-2024 Fall
+  - 🧾 Instructor: Rong ZHANG
+{% endcapture %}
+
+{% capture ta-ISDN2400-23-24-Spring %}
+- ISDN 2400 - Physical Prototyping
+  - 📍Role: Teaching Assistant
+  - ⌚ Semester: 2023-2024 Spring
+  - 🧾 Instructor: Rob SCHARFF
+{% endcapture %}
+
+{% capture ta-ISDN2400-24-25-Spring %}
+- [ISDN 2400 - Physical Prototyping](https://hkust-isd-soft-robotics-lab.github.io/ISDN2400-24-25-Spring/)
+  - 📍Role: Teaching Assistant
+  - ⌚ Semester: 2024-2025 Spring
+  - 🧾 Instructor: Rob SCHARFF
+{% endcapture %}
+
+<div class="notice">{{ ta-ISDN2400-24-25-Spring | markdownify }}</div>
+<div class="notice">{{ ta-ISDN2400-23-24-Spring | markdownify }}</div>
+<div class="notice">{{ ta-emia2020-23-24-Fall | markdownify }}</div>
+<div class="notice">{{ ta-emia2020-22-23-Spring | markdownify }}</div>
+
 ## Internship & Working Experience
 
 ### Product Engineer and Public Relations
