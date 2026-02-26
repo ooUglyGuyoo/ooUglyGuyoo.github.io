@@ -10,6 +10,9 @@ main:
   #   url: /collection-archive/
   # - title: "Sitemap"
   #   url: /sitemap/
+  - title: "Profile"
+    url: /pages/profile/
+
   - title: "Projects"
     url: /projects/
 
@@ -19,8 +22,11 @@ main:
   - title: "News"
     url: /news/
 
-  - title: "Cloud"
-    url: https://nc.ycericliang.com/
+  - title: "Hobby"
+    url: /pages/cycling/
 
-  - title: "LLM"
-    url: https://llm.ycericliang.com/
+  # - title: "Cloud"
+  #   url: https://nc.ycericliang.com/
+
+  # - title: "LLM"
+  #   url: https://llm.ycericliang.com/
