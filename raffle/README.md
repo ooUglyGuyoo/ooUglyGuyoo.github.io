@@ -12,4 +12,5 @@ HKUSTMSSS 2026迎新晚会 · 幸运大抽奖。单文件自包含页面(含背�
 - 密码 / 奖品 / 轮次: 编辑 `index.html` 顶部 `PASSWORD_HASH` 与 `ROUNDS` 常量
 - 号码池: 编辑 `buildPool()` 中的号段(S/H/V)
 - 正式号码表(Excel 一列)由脚本转成 JSON 覆盖 `buildPool()` 即可
-- 奖品图/品牌 logo: 替换 `ROUNDS` 里 `emoji` 字段为图片路径(图片放本目录)
+- 奖品图/品牌 logo: 已以 base64 内嵌在 `index.html` 的 `PRIZE_IMG` / `LOGO_IMG` 常量中;
+  换图请把新图发给助手,用 `embed_images.py`(本地源码目录)重新生成并推送
