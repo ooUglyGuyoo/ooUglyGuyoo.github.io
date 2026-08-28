@@ -110,16 +110,15 @@ search: false
 }
 .grid__item .archive__item-title {
   display: -webkit-box !important;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  min-height: 2.6em;
 }
 .grid__item .archive__item-excerpt {
   display: -webkit-box;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
+  -webkit-line-clamp: 6;
+  line-clamp: 6;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }

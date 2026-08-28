@@ -56,7 +56,7 @@
 
     {% if post.excerpt and include.type == "grid"%}
       <p class="archive__item-excerpt" itemprop="description" style="clear: left;">
-        {{ post.excerpt | markdownify | strip_html | truncate: 150 }}
+        {{ post.excerpt | markdownify | strip_html | truncate: 400 }}
       </p>
     {% endif %}
 
