@@ -1,0 +1,467 @@
+---
+layout: raw
+permalink: /bus/
+title: "Bus ETA"
+sitemap: false
+---
+
+<!doctype html>
+<html lang="en-HK">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Bus ETA · 井欄樹</title>
+<style>
+  :root{
+    --bg:#0b0e14; --panel:#131823; --panel2:#171d2b; --line:#242c3d;
+    --txt:#e8edf7; --dim:#8b97ad; --dim2:#5d6980;
+    --a:#4da3ff; --a-bg:#0f2136;        /* 往九龍  (blue)  */
+    --b:#ffb02e; --b-bg:#2a1f08;        /* 往西貢  (amber) */
+    --due:#ff4d4d; --ok:#39d98a;
+  }
+  *{box-sizing:border-box; margin:0; padding:0; min-width:0}
+  html,body{height:100%; overflow:hidden; background:var(--bg); color:var(--txt);
+    font-family:system-ui,"Segoe UI","Noto Sans CJK TC","Noto Sans TC","Microsoft JhengHei","PingFang TC",sans-serif;
+    -webkit-font-smoothing:antialiased}
+  body{display:grid; grid-template-rows:auto minmax(0,1fr) auto; gap:.5vh; padding:.9vh 1.1vh}
+
+  /* ---------- header ---------- */
+  header{display:grid; grid-template-columns:auto minmax(0,1fr); gap:.4vh 1.4vh; align-items:center;
+    background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:.9vh 1.4vh}
+  .hleft{display:flex; align-items:baseline; gap:1.4vh}
+  #clock{font-size:5.4vh; font-weight:700; letter-spacing:.5px; font-variant-numeric:tabular-nums; line-height:1}
+  #date{font-size:2.2vh; color:var(--dim); font-weight:600}
+  .hright{display:flex; flex-wrap:wrap; align-items:center; justify-content:flex-end; gap:.8vh .9vh}
+  .wx{display:flex; align-items:center; gap:.8vh; font-size:2.35vh; font-weight:600;
+    background:var(--panel2); border:1px solid var(--line); border-radius:10px; padding:.45vh 1.1vh; white-space:nowrap}
+  .wx .k{color:var(--dim); font-size:1.85vh; font-weight:500}
+  #wxicon{font-size:2.9vh}
+  .badges{display:flex; flex-wrap:wrap; gap:.6vh; grid-column:1/-1; justify-content:flex-start}
+  .badge{display:flex; align-items:center; gap:.7vh; font-size:2.05vh; font-weight:700;
+    border-radius:999px; padding:.32vh 1.2vh; border:1.5px solid transparent; white-space:nowrap}
+  .badge small{font-weight:500; opacity:.85; font-size:1.75vh}
+  .b-red{background:#4a0f14; border-color:#ff5b5b; color:#ffd9d9}
+  .b-orange{background:#4a2a06; border-color:#ffa53d; color:#ffe9cf}
+  .b-yellow{background:#463c05; border-color:#ffe14d; color:#fff7cf}
+  .b-blue{background:#0d2a45; border-color:#57b8ff; color:#dcefff}
+  .b-cyan{background:#08313a; border-color:#4dd8e8; color:#d6f7fb}
+  .b-purple{background:#2a1350; border-color:#b28cff; color:#ece0ff}
+  .b-grey{background:#242c3d; border-color:#7a8699; color:#e2e8f2}
+
+  /* ---------- columns ---------- */
+  main{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:1vh; min-height:0}
+  .col{display:flex; flex-direction:column; min-height:0; min-width:0;
+    background:var(--panel); border:1px solid var(--line); border-radius:12px; overflow:hidden}
+  .colA{border-top:5px solid var(--a)} .colB{border-top:5px solid var(--b)}
+  .chead{display:flex; align-items:center; gap:1.2vh; padding:.9vh 1.4vh; border-bottom:1px solid var(--line); flex:0 0 auto}
+  .colA .chead{background:linear-gradient(90deg,var(--a-bg),transparent)}
+  .colB .chead{background:linear-gradient(90deg,var(--b-bg),transparent)}
+  .cicon{font-size:4.4vh; line-height:1}
+  .ctitle{font-size:3.1vh; font-weight:800; letter-spacing:.3px; white-space:nowrap}
+  .colA .ctitle{color:var(--a)} .colB .ctitle{color:var(--b)}
+  .csub{font-size:2vh; color:var(--dim); font-weight:600; margin-top:.15vh; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .cland{font-size:1.75vh; color:var(--dim2); font-weight:600}
+  .carrow{margin-left:auto; font-size:4vh; font-weight:800; opacity:.85}
+  .colA .carrow{color:var(--a)} .colB .carrow{color:var(--b)}
+
+  /* rows scale themselves down when a lot of routes are running (--fs is set by JS) */
+  .rows,.offwrap{font-size:calc(1vh * var(--fs,1))}
+  .rows{display:flex; flex-direction:column; min-height:0; flex:1 1 auto; overflow:hidden}
+  .row{display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:1.1vh;
+    flex:1 0 auto;
+    padding:.55em 1.4vh; border-bottom:1px solid rgba(36,44,61,.75); min-width:0}
+  .row:last-child{border-bottom:none}
+  .row.next{background:linear-gradient(90deg,rgba(77,163,255,.16),transparent 65%); box-shadow:inset 4px 0 0 var(--a)}
+  .colB .row.next{background:linear-gradient(90deg,rgba(255,176,46,.16),transparent 65%); box-shadow:inset 4px 0 0 var(--b)}
+  .route{display:flex; align-items:center; justify-content:center; min-width:8vh;
+    font-size:2.9em; font-weight:800; padding:.3em 1vh; border-radius:8px;
+    background:#e9eef7; color:#101521; font-variant-numeric:tabular-nums}
+  .route.gmb{background:#0d6b3f; color:#eafff3}
+  .dest{display:flex; align-items:center; gap:.9vh; min-width:0}
+  .dicon{font-size:2.6em; line-height:1}
+  .dnames{min-width:0}
+  .dzh,.den{display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .dzh{font-size:2.7em; font-weight:700; line-height:1.2}
+  .den{font-size:1.55em; color:var(--dim2); line-height:1.3}
+  .etas{display:flex; align-items:baseline; gap:.9vh; font-variant-numeric:tabular-nums}
+  .eta{font-size:2.7em; font-weight:700; color:var(--dim); min-width:4.6em; text-align:right; line-height:1}
+  .eta.first{font-size:3.5em; font-weight:800; color:var(--txt)}
+  .eta.due{color:var(--due)}
+  .eta.dash{color:var(--dim2); font-weight:500; font-size:2.3em}
+  .row.next .eta.first{color:var(--a)} .colB .row.next .eta.first{color:var(--b)}
+  .empty{padding:1.4vh; color:var(--dim2); font-size:2.1em; font-weight:600}
+
+  .offwrap{padding:.4vh 1.4vh .6vh; border-top:1px dashed var(--line); flex:0 0 auto; overflow:hidden}
+  .offhdr{font-size:1.65em; color:var(--dim2); font-weight:700; letter-spacing:.6px; text-transform:uppercase; margin-bottom:.2em}
+  .offrow{display:flex; align-items:center; gap:.9vh; padding:.18em 0; opacity:.5}
+  .offrow .route{font-size:1.9em; min-width:5.4em; padding:.1em .7vh}
+  .offrow .dicon{font-size:1.9em}
+  .offrow .dzh{font-size:1.9em; font-weight:600}
+  .offrow .note{font-size:1.55em; color:var(--dim2); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .offrow .eta{font-size:1.95em; min-width:3em; color:var(--dim2)}
+
+  footer{display:flex; align-items:center; gap:1.4vh; font-size:1.85vh; color:var(--dim);
+    background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:.5vh 1.4vh}
+  #src,#health,#updated{white-space:nowrap}
+  #msg{white-space:nowrap; overflow:hidden; text-overflow:ellipsis; flex:1 1 auto;
+    padding-left:1.6vh; border-left:1px solid var(--dim2)}
+  #msg:empty{border-left:none}
+  #health{font-weight:700}
+  .dot{display:inline-block; width:1vh; height:1vh; border-radius:50%; background:var(--ok); margin-right:.5vh}
+  .dot.bad{background:var(--due)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hleft">
+    <div id="clock">--:--:--</div>
+    <div id="date"></div>
+  </div>
+  <div class="hright">
+    <div class="wx"><span id="wxicon">☁</span><span id="wxtemp">--°C</span><span class="k" id="wxplace">Sai Kung</span></div>
+    <div class="wx"><span class="k">Humidity</span><span id="wxhum">--%</span></div>
+    <div class="wx"><span class="k">UV</span><span id="wxuv">--</span></div>
+    <div class="wx"><span class="k">Rain 1h</span><span id="wxrain">--</span></div>
+    <div class="wx"><span id="wxfc">--</span></div>
+  </div>
+  <div class="badges" id="badges"></div>
+</header>
+
+<main>
+  <section class="col colA">
+    <div class="chead">
+      <div class="cicon" id="iconA">💎</div>
+      <div>
+        <div class="ctitle" id="titleA">To Kowloon · 往九龍</div>
+        <div class="csub" id="subA"></div>
+        <div class="cland" id="landA"></div>
+      </div>
+      <div class="carrow">◀</div>
+    </div>
+    <div class="rows" id="rowsA"></div>
+    <div class="offwrap" id="offA"></div>
+  </section>
+
+  <section class="col colB">
+    <div class="chead">
+      <div class="cicon" id="iconB">🎓</div>
+      <div>
+        <div class="ctitle" id="titleB">To Sai Kung · 往西貢 / 清水灣</div>
+        <div class="csub" id="subB"></div>
+        <div class="cland" id="landB"></div>
+      </div>
+      <div class="carrow">▶</div>
+    </div>
+    <div class="rows" id="rowsB"></div>
+    <div class="offwrap" id="offB"></div>
+  </section>
+</main>
+
+<footer>
+  <div id="health"><span class="dot" id="hdot"></span><span id="htxt">connecting…</span></div>
+  <div id="src">KMB/LWB · GMB · HKO</div>
+  <div id="msg"></div>
+  <div id="updated">--:--:--</div>
+</footer>
+
+<script>
+/* ============================================================================
+   Bus ETA dashboard — 井欄樹 (Tseng Lan Shue), Clear Water Bay Road
+   Standalone static page. Sources (all public open data, CORS-enabled):
+     KMB/LWB  https://data.etabus.gov.hk      -> ETAs of all KMB routes at a stop
+     GMB      https://data.etagmb.gov.hk      -> ETAs of green minibuses at a stop
+     HKO      https://data.weather.gov.hk     -> now weather, warnings, forecast
+   ========================================================================== */
+const CFG = {
+  refreshMs: 10000,        // bus ETA refresh
+  gmbMs: 30000,            // minibus refresh (API is stricter, ETAs change slower)
+  weatherMs: 60000,        // weather + warnings refresh
+  kmb: { A: "47B8E78BAB4FEB5D", B: "8761A61C8F422D4D" },   // 井欄樹 SK507 | SK102
+  gmb: { A: "20001996",         B: "20001999" },            // 井欄樹 kerb A | kerb B
+  gmbSkip: ["1", "1A"],    // too frequent to need an ETA
+  panels: {
+    A: { icon:"💎", title:"To Kowloon · 往九龍", sub:"鑽石山站 · 彩虹 · 觀塘 · 旺角 · 尖沙咀", landmark:"" },
+    B: { icon:"🎓", title:"To Sai Kung · 往西貢 / 清水灣", sub:"西貢 · 清水灣 · 寶琳 · 香港科技大學 · 坑口", landmark:"" }
+  }
+};
+
+/* GMB route_id/route_seq -> code + destination (static table from etagmb API) */
+const GMB_ROUTES = {
+  "2002352/1": { code:"1S",  zh:"鑽石山 (彩虹道)", en:"Diamond Hill (Choi Hung Rd)" },
+  "2002352/2": { code:"1S",  zh:"西貢",           en:"Sai Kung" },
+  "2004791/1": { code:"11",  zh:"彩虹站 (龍翔道)", en:"Choi Hung Station" },
+  "2004791/2": { code:"11",  zh:"坑口村",         en:"Hang Hau Village" },
+  "2004826/1": { code:"11S", zh:"彩虹站 (龍翔道)", en:"Choi Hung Station" },
+  "2004826/2": { code:"11S", zh:"寶琳",           en:"Po Lam" },
+  "2004827/1": { code:"11B", zh:"彩虹站 (龍翔道)", en:"Choi Hung Station" },
+  "2004827/2": { code:"11B", zh:"香港科技大學 (北站)", en:"HKUST (North Station)" },
+  "2004828/1": { code:"11B", zh:"彩虹站 (龍翔道)", en:"Choi Hung Station" },
+  "2004764/1": { code:"12",  zh:"寶琳",           en:"Po Lam" },
+  "2004764/2": { code:"12",  zh:"西貢",           en:"Sai Kung" },
+  "2007200/1": { code:"104", zh:"觀塘 (循環線)",  en:"Kwun Tong (circular)" }
+};
+
+/* destination icon */
+const DEST_ICON = [
+  [/鑽石山/, "💎"], [/科技大學|HKUST/i, "🎓"], [/西貢/, "🏞"], [/清水灣/, "🏖"],
+  [/寶琳|寶林/, "🏙"], [/坑口/, "🏘"], [/彩虹|坪石/, "🚇"], [/觀塘/, "🏢"],
+  [/旺角/, "🛍"], [/尖沙咀/, "🌊"], [/黃石/, "⛱"], [/德福|九龍灣/, "🏬"]
+];
+const icon = s => (DEST_ICON.find(([re]) => re.test(s || "")) || [, "🚌"])[1];
+
+/* every warning signal the Observatory can issue */
+const WARN = {
+  WFIRE:  ["火災危險", "b-yellow"], WFROST: ["霜凍", "b-cyan"],
+  WHOT:   ["酷熱天氣", "b-orange"], WCOLD:  ["寒冷天氣", "b-cyan"],
+  WMSGNL: ["強烈季候風", "b-purple"],
+  WRAINA: ["黃色暴雨", "b-yellow"], WRAINB: ["紅色暴雨", "b-red"], WRAINC: ["黑色暴雨", "b-red"],
+  WTCSGNL:["熱帶氣旋", "b-blue"],   WTMW:   ["海嘯", "b-red"],
+  WTS:    ["雷暴", "b-yellow"],     WL:     ["山泥傾瀉", "b-orange"],
+  WFNTSA: ["新界北部水浸", "b-blue"], WFIREY:["火災危險", "b-yellow"], WFIRER:["火災危險", "b-red"]
+};
+
+const $ = id => document.getElementById(id);
+const bust = u => u + (u.includes("?") ? "&" : "?") + "_=" + Date.now();
+
+/* fetch with one retry; throws on HTTP errors or an unexpected payload shape
+   so a failed source is reported instead of silently blanking the screen */
+async function getJSON(url, looksRight = j => j && typeof j === "object"){
+  let err;
+  for (let attempt = 0; attempt < 2; attempt++){
+    try {
+      const r = await fetch(bust(url), { cache:"no-store" });
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      const j = await r.json();
+      if (!looksRight(j)) throw new Error("unexpected payload");
+      return j;
+    } catch(e){ err = e; await new Promise(s => setTimeout(s, 1500)); }
+  }
+  throw err;
+}
+
+/* ---------------- clock ---------------- */
+const WD = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"], MO = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const p2 = n => String(n).padStart(2,"0");
+function tickClock(){
+  const d = new Date();
+  $("clock").textContent = `${p2(d.getHours())}:${p2(d.getMinutes())}:${p2(d.getSeconds())}`;
+  $("date").textContent  = `${WD[d.getDay()]} ${d.getDate()} ${MO[d.getMonth()]} ${d.getFullYear()}`;
+}
+setInterval(tickClock, 250); tickClock();
+
+/* ---------------- bus data ---------------- */
+const minsLeft = iso => Math.round((new Date(iso).getTime() - Date.now()) / 60000);
+const shortRmk = s => !s ? "no ETA data"
+  : /Mondays to Fridays/.test(s) ? "Mon–Fri only"
+  : /Sundays and Public Holidays/.test(s) ? "Sun & public holidays only"
+  : /Public Holidays/.test(s) ? "Public holidays only"
+  : s.replace(/^This route only operates on /, "").slice(0, 30);
+
+/* raw rows keep absolute ISO timestamps; minutes are recomputed on every render
+   so cached data still counts down correctly between polls */
+function parseKmb(j){
+  const g = new Map();
+  for (const e of j.data){
+    const key = `${e.route}|${e.dir}`;
+    if (!g.has(key)) g.set(key, { route:e.route, zh:e.dest_tc, en:e.dest_en, iso:[], rmk:e.rmk_en || "", co:"KMB" });
+    const it = g.get(key);
+    if (e.eta) it.iso.push(e.eta);
+    if (e.rmk_en) it.rmk = e.rmk_en;
+  }
+  return [...g.values()];
+}
+
+function parseGmb(j){
+  const out = [];
+  for (const e of j.data){
+    const meta = GMB_ROUTES[`${e.route_id}/${e.route_seq}`];
+    if (!meta || CFG.gmbSkip.includes(meta.code)) continue;
+    const iso = (e.eta || []).map(x => x.timestamp).filter(Boolean);
+    out.push({ route:meta.code, zh:meta.zh, en:meta.en, iso, rmk:"", co:"GMB" });
+  }
+  return out;
+}
+
+/* last good payload per side/source — a transient API blip must not blank the TV */
+const RAW  = { A:{ KMB:[], GMB:[] }, B:{ KMB:[], GMB:[] } };
+const dead = new Set();
+
+async function pull(side, source){
+  const url = source === "KMB"
+    ? `https://data.etabus.gov.hk/v1/transport/kmb/stop-eta/${CFG.kmb[side]}`
+    : `https://data.etagmb.gov.hk/eta/stop/${CFG.gmb[side]}`;
+  try {
+    const j = await getJSON(url, x => Array.isArray(x.data) && x.data.length > 0);
+    const rows = (source === "KMB" ? parseKmb : parseGmb)(j);
+    if (rows.length){ RAW[side][source] = rows; dead.delete(source); }
+    else dead.add(source);
+  } catch(e){ dead.add(source); }
+}
+
+const fmt = m => m == null ? "—" : (m <= 0 ? "Due" : m + "′");
+
+function rowHTML(r, isNext){
+  const t = r.times.slice(0,3);
+  const chips = [0,1,2].map(i => t[i] == null
+      ? `<span class="eta dash">—</span>`
+      : `<span class="eta${i===0?" first":""}${t[i]<=0?" due":""}">${fmt(t[i])}</span>`).join("");
+  return `<div class="row${isNext?" next":""}">
+    <span class="route${r.co==="GMB"?" gmb":""}">${r.route}</span>
+    <span class="dest"><span class="dicon">${icon(r.zh)}</span>
+      <span class="dnames"><span class="dzh">${r.zh}</span><span class="den">${r.en || ""}</span></span></span>
+    <span class="etas">${chips}</span></div>`;
+}
+
+function render(side){
+  {
+    const rows = [...RAW[side].KMB, ...RAW[side].GMB].map(r => ({
+      ...r, times: r.iso.map(minsLeft).filter(m => m > -1).sort((a,b) => a-b)
+    }));
+    rows.sort((x,y) => (x.times[0] ?? 1e9) - (y.times[0] ?? 1e9));
+    const live = rows.filter(r => r.times.length);
+    const off  = rows.filter(r => !r.times.length);
+    $("rows"+side).innerHTML = live.map((r,i) => rowHTML(r, i===0)).join("")
+      || `<div class="empty">No bus ETA right now</div>`;
+    const shown = off.slice(0, 6);
+    $("off"+side).innerHTML = off.length ? `<div class="offhdr">No ETA right now</div>` + shown.map(r =>
+      `<div class="offrow"><span class="route${r.co==="GMB"?" gmb":""}">${r.route}</span>
+        <span class="dicon">${icon(r.zh)}</span><span class="dzh">${r.zh}</span>
+        <span class="note">${shortRmk(r.rmk)}</span><span class="eta">—</span></div>`).join("")
+      + (off.length > shown.length ? `<div class="offrow"><span class="note">+${off.length - shown.length} more route(s)</span></div>` : "") : "";
+
+    fit(side);
+  }
+}
+
+/* fit-to-height: shrink the row type just enough that a column never scrolls.
+   Called after every render — including the weather render, because extra warning
+   badges make the header taller and steal height from the columns. */
+function fit(side){
+  const col = document.querySelector(".col" + side);
+  const r = $("rows"+side), o = $("off"+side);
+  for (const fs of [1, 0.96, 0.92, 0.88, 0.84, 0.8, 0.76, 0.72, 0.68]){
+    col.style.setProperty("--fs", fs);
+    if (r.scrollHeight <= r.clientHeight + 2 && o.scrollHeight <= o.clientHeight + 2) return;
+  }
+}
+
+/* ---------------- weather ---------------- */
+const HKO = "https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=";
+const ICON = { 50:"☀", 51:"🌤", 52:"⛅", 53:"🌦", 54:"🌧", 60:"☁", 61:"🌫", 62:"🌧",
+  63:"🌧", 64:"⛈", 65:"⛈", 70:"🌙", 71:"☁", 72:"⛅", 73:"🌦", 74:"🌧", 75:"⛈",
+  76:"🌫", 77:"☁", 80:"💨", 81:"🌦", 82:"🌧", 83:"🌧", 84:"⛈", 85:"🌧",
+  90:"🔥", 91:"🔥", 92:"🔥", 93:"🔥" };
+
+function badgeHTML(key, v){
+  const [zh, base] = WARN[key] || [key, "b-grey"];
+  let cls = base;
+  const type = v.type || "";
+  if (key === "WFIRE")  cls = /Red/i.test(type) ? "b-red" : "b-yellow";
+  if (key === "WRAINA") cls = "b-yellow";
+  if (key === "WRAINB" || key === "WRAINC") cls = "b-red";
+  if (key === "WTCSGNL"){
+    const no = (v.name || "").match(/No\.\s*(\d+)/);
+    cls = no && Number(no[1]) >= 8 ? "b-red" : "b-blue";
+  }
+  return `<span class="badge ${cls}">⚠ ${zh}${type ? " " + type : ""} <small>${v.name}</small></span>`;
+}
+
+async function renderWeather(){
+  const failed = [];
+  let msg = [];
+  try {
+    const r = await getJSON(HKO + "rhrread&lang=en");
+    const t = (r.temperature?.data || []).find(x => /sai kung/i.test(x.place));
+    $("wxtemp").textContent = (t ? t.value : "–") + "°C";
+    $("wxicon").textContent = ICON[(r.icon || [])[0]] || "🌡";
+    $("wxhum").textContent  = ((r.humidity?.data || [])[0]?.value ?? "–") + "%";
+    const uv = (r.uvindex?.data || [])[0];
+    $("wxuv").textContent = uv ? `${uv.value} ${uv.desc}` : "–";
+    const rain = (r.rainfall?.data || []).find(x => /sai kung/i.test(x.place));
+    $("wxrain").textContent = rain ? rain.max + " mm" : "–";
+    msg.push(...(r.warningMessage || []));
+  } catch(e){ failed.push("now"); }
+
+  try {
+    const f = await getJSON(HKO + "fnd&lang=en");
+    const list = f.weatherForecast || [];
+    const day = d => d.getFullYear()*10000 + (d.getMonth()+1)*100 + d.getDate();
+    const today = new Date(), tmr = new Date(Date.now() + 864e5);
+    const d = list.find(x => Number(x.forecastDate) === day(today)) || list[0];
+    const when = Number(d.forecastDate) === day(today) ? "Today"
+               : Number(d.forecastDate) === day(tmr)   ? "Tomorrow" : d.week;
+    $("wxfc").textContent = `${when} ${d.forecastMintemp.value}–${d.forecastMaxtemp.value}°C · PSR ${d.PSR}`;
+  } catch(e){ failed.push("forecast"); }
+
+  try {
+    const w = await getJSON(HKO + "warnsum&lang=en");
+    const html = Object.entries(w)
+      .filter(([, v]) => v && v.name && v.actionCode !== "CANCEL")
+      .map(([k, v]) => badgeHTML(k, v)).join("");
+    $("badges").innerHTML = html || `<span class="badge b-grey">No warning signal in force · 現無警告生效</span>`;
+  } catch(e){ failed.push("warnings"); }
+
+  try {
+    const s = await getJSON(HKO + "swt&lang=en");
+    msg.push(...(s.swt || []).map(t => t.desc).filter(Boolean));
+  } catch(e){ /* optional */ }
+
+  window.__msg = [...new Set(msg)].join("  ·  ");
+  return failed;
+}
+
+/* ---------------- loop / health ---------------- */
+let lastGood = null;
+const wxDead = new Set();
+function health(){
+  const bad = dead.size + wxDead.size;
+  $("hdot").className = "dot" + (bad ? " bad" : "");
+  $("htxt").textContent = bad ? "STALE " + [...dead, ...wxDead].join("/") : "live";
+  $("msg").textContent = window.__msg || "";
+  if (!bad) lastGood = new Date();
+  const t = lastGood || new Date();
+  $("updated").textContent = `updated ${p2(t.getHours())}:${p2(t.getMinutes())}:${p2(t.getSeconds())}`;
+}
+
+/* buses: KMB on the fast tick, minibus on its own slower tick */
+async function tickBuses(){
+  await Promise.all(["A","B"].map(s => pull(s, "KMB")));
+  render("A"); render("B"); health();
+}
+async function tickGmb(){
+  await Promise.all(["A","B"].map(s => pull(s, "GMB")));
+  render("A"); render("B"); health();
+}
+async function refreshWeather(){
+  const wf = await renderWeather();
+  ["now","forecast","warnings"].forEach(k => wxDead.delete(k));
+  wf.forEach(k => wxDead.add(k));
+  fit("A"); fit("B");
+  health();
+}
+
+addEventListener("resize", () => { fit("A"); fit("B"); });
+
+/* apply config to header */
+["A","B"].forEach(s => {
+  $("icon"+s).textContent  = CFG.panels[s].icon;
+  $("title"+s).textContent = CFG.panels[s].title;
+  $("sub"+s).textContent   = CFG.panels[s].sub;
+  $("land"+s).textContent  = CFG.panels[s].landmark || "";
+});
+
+/* keep the TV awake */
+const keepAwake = async () => { try { await navigator.wakeLock?.request("screen"); } catch(e){} };
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden){ tickBuses(); tickGmb(); refreshWeather(); keepAwake(); }
+});
+
+tickBuses(); tickGmb(); refreshWeather(); keepAwake();
+setInterval(tickBuses, CFG.refreshMs);
+setInterval(tickGmb, CFG.gmbMs);
+setInterval(refreshWeather, CFG.weatherMs);
+</script>
+</body>
+</html>
