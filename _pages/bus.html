@@ -103,11 +103,15 @@ sitemap: false
 
   footer{display:flex; align-items:center; gap:1.4vh; font-size:1.85vh; color:var(--dim);
     background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:.5vh 1.4vh}
-  #src,#health,#updated{white-space:nowrap}
-  #msg{white-space:nowrap; overflow:hidden; text-overflow:ellipsis; flex:1 1 auto;
+  #src,#health,#updated{white-space:nowrap; flex:0 0 auto}
+  #msg{white-space:nowrap; overflow:hidden; flex:1 1 0; min-width:0;
     padding-left:1.6vh; border-left:1px solid var(--dim2)}
   #msg:empty{border-left:none}
   #msg:not(:empty)::before{content:"▏ "; color:var(--dim2)}
+  /* long HKO messages slide across the bar instead of being cut off */
+  #msg .tick{display:inline-block; white-space:nowrap; will-change:transform}
+  #msg .tick.run{animation:marquee linear infinite}
+  @keyframes marquee{ from{transform:translateX(0)} to{transform:translateX(-50%)} }
   #health{font-weight:700}
   .dot{display:inline-block; width:1vh; height:1vh; border-radius:50%; background:var(--ok); margin-right:.5vh}
   .dot.bad{background:var(--due)}
@@ -416,11 +420,28 @@ async function renderWeather(){
 /* ---------------- loop / health ---------------- */
 let lastGood = null;
 const wxDead = new Set();
+
+/* footer notice: long Observatory messages scroll, short ones stay put */
+function setMsg(text){
+  const box = $("msg");
+  if (!text){ box.replaceChildren(); return; }
+  const once = text + "      ·      ";
+  const track = document.createElement("span");
+  track.className = "tick";
+  track.textContent = once + once;            // two copies -> seamless -50% loop
+  box.replaceChildren(track);
+  const width = track.scrollWidth / 2;        // width of one copy
+  if (width > box.clientWidth - 4){
+    track.style.animationDuration = Math.max(10, Math.round(width / 70)) + "s";  // ~70 px/s
+    track.classList.add("run");
+  }
+}
+
 function health(){
   const bad = dead.size + wxDead.size;
   $("hdot").className = "dot" + (bad ? " bad" : "");
   $("htxt").textContent = bad ? "STALE " + [...dead, ...wxDead].join("/") : "live";
-  $("msg").textContent = window.__msg || "";
+  setMsg(window.__msg || "");
   if (!bad) lastGood = new Date();
   const t = lastGood || new Date();
   $("updated").textContent = `updated ${p2(t.getHours())}:${p2(t.getMinutes())}:${p2(t.getSeconds())}`;
