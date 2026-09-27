@@ -24,7 +24,7 @@ sitemap: false
   html,body{height:100%; overflow:hidden; background:var(--bg); color:var(--txt);
     font-family:system-ui,"Segoe UI","Noto Sans CJK TC","Noto Sans TC","Microsoft JhengHei","PingFang TC",sans-serif;
     -webkit-font-smoothing:antialiased}
-  body{display:grid; grid-template-rows:auto minmax(0,1fr) auto; gap:.5vh; padding:.9vh 1.1vh}
+  body{display:grid; grid-template-rows:auto auto minmax(0,1fr) auto; gap:.5vh; padding:.9vh 1.1vh}
 
   /* ---------- header ---------- */
   header{display:grid; grid-template-columns:auto minmax(0,1fr); gap:.4vh 1.4vh; align-items:center;
@@ -48,6 +48,22 @@ sitemap: false
   .b-cyan{background:#08313a; border-color:#4dd8e8; color:#d6f7fb}
   .b-purple{background:#2a1350; border-color:#b28cff; color:#ece0ff}
   .b-grey{background:#242c3d; border-color:#7a8699; color:#e2e8f2}
+
+  /* ---------- multi-day forecast strip ---------- */
+  .fc{display:flex; align-items:center; background:var(--panel); border:1px solid var(--line);
+    border-radius:10px; padding:.45vh 1.4vh; overflow:hidden; white-space:nowrap; font-size:2vh}
+  .fc .lbl{font-size:1.55vh; color:var(--dim2); font-weight:700; letter-spacing:.6px;
+    text-transform:uppercase; margin-right:1.6vh}
+  .fc .d{display:flex; flex-direction:column; justify-content:center; gap:.15vh; flex:1 1 0;
+    padding:0 1.5vh; border-right:1px solid var(--line); min-width:0}
+  .fc .d:last-child{border-right:none}
+  .fc .r1{display:flex; align-items:center; gap:.7vh}
+  .fc .dw{font-weight:700; min-width:8.5vh}
+  .fc .di{font-size:2.5vh; line-height:1}
+  .fc .dt{font-weight:700; font-variant-numeric:tabular-nums}
+  .fc .dr{color:var(--dim); font-size:1.7vh}
+  .fc .dr b{color:inherit; font-weight:700}
+  .fc .wt{font-size:1.65vh; color:var(--dim2); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
 
   /* ---------- columns ---------- */
   main{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:1vh; min-height:0}
@@ -92,14 +108,15 @@ sitemap: false
   .row.next .eta.first{color:var(--a)} .colB .row.next .eta.first{color:var(--b)}
   .empty{padding:1.4vh; color:var(--dim2); font-size:2.1em; font-weight:600}
 
-  .offwrap{padding:.4vh 1.4vh .6vh; border-top:1px dashed var(--line); flex:0 0 auto; overflow:hidden}
-  .offhdr{font-size:1.65em; color:var(--dim2); font-weight:700; letter-spacing:.6px; text-transform:uppercase; margin-bottom:.2em}
-  .offrow{display:flex; align-items:center; gap:.9vh; padding:.18em 0; opacity:.5}
-  .offrow .route{font-size:1.9em; min-width:5.4em; padding:.1em .7vh}
-  .offrow .dicon{font-size:1.9em}
-  .offrow .dzh{font-size:1.9em; font-weight:600}
-  .offrow .note{font-size:1.55em; color:var(--dim2); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
-  .offrow .eta{font-size:1.95em; min-width:3em; color:var(--dim2)}
+  /* routes with nothing running right now: compressed into a wrapping chip line */
+  .offwrap{padding:.35vh 1.4vh .55vh; border-top:1px dashed var(--line); flex:0 0 auto; overflow:hidden}
+  .offhdr{font-size:1.6em; color:var(--dim2); font-weight:700; letter-spacing:.6px;
+    text-transform:uppercase; margin-bottom:.15em}
+  .offitems{display:flex; flex-wrap:wrap; align-items:center; gap:.15em 1.7vh}
+  .oit{display:flex; align-items:center; gap:.5vh; font-size:1.9em; color:var(--dim); white-space:nowrap; opacity:.62}
+  .oit b{background:#e9eef7; color:#101521; border-radius:5px; padding:.02em .55vh; font-weight:800}
+  .oit.gmb b{background:#0d6b3f; color:#eafff3}
+  .oit i{font-style:normal; color:var(--dim2); font-size:.82em}
 
   footer{display:flex; align-items:center; gap:1.4vh; font-size:1.85vh; color:var(--dim);
     background:var(--panel); border:1px solid var(--line); border-radius:10px; padding:.5vh 1.4vh}
@@ -129,10 +146,12 @@ sitemap: false
     <div class="wx"><span class="k">Humidity</span><span id="wxhum">--%</span></div>
     <div class="wx"><span class="k">UV</span><span id="wxuv">--</span></div>
     <div class="wx"><span class="k">Rain 1h</span><span id="wxrain">--</span></div>
-    <div class="wx"><span id="wxfc">--</span></div>
   </div>
   <div class="badges" id="badges"></div>
 </header>
+
+<!-- next few days at a glance -->
+<section class="fc" id="fc"></section>
 
 <main>
   <section class="col colA">
@@ -329,12 +348,14 @@ function render(side){
     const off  = rows.filter(r => !r.times.length);
     $("rows"+side).innerHTML = live.map((r,i) => rowHTML(r, i===0)).join("")
       || `<div class="empty">No bus ETA right now</div>`;
-    const shown = off.slice(0, 6);
-    $("off"+side).innerHTML = off.length ? `<div class="offhdr">No ETA right now</div>` + shown.map(r =>
-      `<div class="offrow"><span class="route${r.co==="GMB"?" gmb":""}">${r.route}</span>
-        <span class="dicon">${icon(r.zh)}</span><span class="dzh">${r.zh}</span>
-        <span class="note">${shortRmk(r.rmk)}</span><span class="eta">—</span></div>`).join("")
-      + (off.length > shown.length ? `<div class="offrow"><span class="note">+${off.length - shown.length} more route(s)</span></div>` : "") : "";
+    const shown = off.slice(0, 10);
+    $("off"+side).innerHTML = off.length
+      ? `<div class="offhdr">No ETA right now</div><div class="offitems">` + shown.map(r =>
+          `<span class="oit${r.co==="GMB"?" gmb":""}"><b>${r.route}</b>${r.zh}${r.rmk ? ` <i>${shortRmk(r.rmk)}</i>` : ""}</span>`
+        ).join("")
+        + (off.length > shown.length ? `<span class="oit">+${off.length - shown.length} more</span>` : "")
+        + `</div>`
+      : "";
 
     fit(side);
   }
@@ -354,10 +375,14 @@ function fit(side){
 
 /* ---------------- weather ---------------- */
 const HKO = "https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataType=";
-const ICON = { 50:"☀", 51:"🌤", 52:"⛅", 53:"🌦", 54:"🌧", 60:"☁", 61:"🌫", 62:"🌧",
-  63:"🌧", 64:"⛈", 65:"⛈", 70:"🌙", 71:"☁", 72:"⛅", 73:"🌦", 74:"🌧", 75:"⛈",
-  76:"🌫", 77:"☁", 80:"💨", 81:"🌦", 82:"🌧", 83:"🌧", 84:"⛈", 85:"🌧",
-  90:"🔥", 91:"🔥", 92:"🔥", 93:"🔥" };
+/* HKO weather icon codes (hko.gov.hk/textonly/v2/explain/wxicon_e.htm):
+   50-54 sunny→showers, 60-65 cloudy→thunderstorms, 70-77 clear/cloudy at night,
+   80-85 windy/dry/humid/fog/mist/haze, 90-93 hot/warm/cool/cold */
+const ICON = { 50:"☀", 51:"🌤", 52:"⛅", 53:"🌦", 54:"🌦",
+  60:"☁", 61:"☁", 62:"🌦", 63:"🌧", 64:"🌧", 65:"⛈",
+  70:"🌙", 71:"🌙", 72:"🌙", 73:"🌙", 74:"🌙", 75:"🌙", 76:"☁", 77:"🌙",
+  80:"💨", 81:"☀", 82:"💧", 83:"🌫", 84:"🌫", 85:"🌫",
+  90:"🔥", 91:"🌤", 92:"🌥", 93:"❄" };
 
 function badgeHTML(key, v){
   const [zh, base] = WARN[key] || [key, "b-grey"];
@@ -371,6 +396,29 @@ function badgeHTML(key, v){
     cls = no && Number(no[1]) >= 8 ? "b-red" : "b-blue";
   }
   return `<span class="badge ${cls}">⚠ ${zh}${type ? " " + type : ""} <small>${v.name}</small></span>`;
+}
+
+/* next few days: weekday, icon, min–max, probability of significant rain */
+const esc = s => String(s == null ? "" : s).replace(/&/g, "&amp;").replace(/</g, "&lt;")
+                                          .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+function renderForecast(list){
+  const midnight = (() => { const t = new Date(); return new Date(t.getFullYear(), t.getMonth(), t.getDate()); })();
+  const cells = list.slice(0, 5).map(x => {
+    const s = String(x.forecastDate);
+    const day = new Date(+s.slice(0,4), +s.slice(4,6) - 1, +s.slice(6,8));
+    const ahead = Math.round((day - midnight) / 864e5);
+    const label = ahead === 0 ? "Today" : ahead === 1 ? "Tomorrow" : `${(x.week || "").slice(0,3)} ${+s.slice(6,8)}`;
+    const psr = String(x.PSR || "").toLowerCase();
+    const rainStyle = psr.startsWith("high") ? ' style="color:#ffb02e"'
+                    : psr.startsWith("medium") ? ' style="color:#ffe14d"' : "";
+    return `<span class="d">
+      <span class="r1"><span class="dw">${label}</span>
+        <span class="di">${ICON[x.ForecastIcon] || "🌡"}</span>
+        <span class="dt">${x.forecastMintemp.value}–${x.forecastMaxtemp.value}°C</span></span>
+      <span class="wt">☔ <b${rainStyle}>${x.PSR}</b> · ${esc(x.forecastWeather)}</span>
+    </span>`;
+  }).join("");
+  $("fc").innerHTML = `<span class="lbl">Forecast · 展望</span>${cells}`;
 }
 
 async function renderWeather(){
@@ -391,13 +439,7 @@ async function renderWeather(){
 
   try {
     const f = await getJSON(HKO + "fnd&lang=en");
-    const list = f.weatherForecast || [];
-    const day = d => d.getFullYear()*10000 + (d.getMonth()+1)*100 + d.getDate();
-    const today = new Date(), tmr = new Date(Date.now() + 864e5);
-    const d = list.find(x => Number(x.forecastDate) === day(today)) || list[0];
-    const when = Number(d.forecastDate) === day(today) ? "Today"
-               : Number(d.forecastDate) === day(tmr)   ? "Tomorrow" : d.week;
-    $("wxfc").textContent = `${when} ${d.forecastMintemp.value}–${d.forecastMaxtemp.value}°C · PSR ${d.PSR}`;
+    renderForecast(f.weatherForecast || []);
   } catch(e){ failed.push("forecast"); }
 
   try {
