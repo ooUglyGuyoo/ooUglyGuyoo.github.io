@@ -107,6 +107,7 @@ sitemap: false
   #msg{white-space:nowrap; overflow:hidden; text-overflow:ellipsis; flex:1 1 auto;
     padding-left:1.6vh; border-left:1px solid var(--dim2)}
   #msg:empty{border-left:none}
+  #msg:not(:empty)::before{content:"▏ "; color:var(--dim2)}
   #health{font-weight:700}
   .dot{display:inline-block; width:1vh; height:1vh; border-radius:50%; background:var(--ok); margin-right:.5vh}
   .dot.bad{background:var(--due)}
