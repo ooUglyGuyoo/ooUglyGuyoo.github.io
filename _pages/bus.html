@@ -142,7 +142,7 @@ sitemap: false
     <div id="date"></div>
   </div>
   <div class="hright">
-    <div class="wx"><span id="wxicon">☁</span><span id="wxtemp">--°C</span><span class="k" id="wxplace">Sai Kung</span></div>
+    <div class="wx"><span id="wxicon">&#x2601;&#xFE0F;</span><span id="wxtemp">--°C</span><span class="k" id="wxplace">Sai Kung</span></div>
     <div class="wx"><span class="k">Humidity</span><span id="wxhum">--%</span></div>
     <div class="wx"><span class="k">UV</span><span id="wxuv">--</span></div>
     <div class="wx"><span class="k">Rain 1h</span><span id="wxrain">--</span></div>
@@ -227,11 +227,16 @@ const GMB_ROUTES = {
   "2007200/1": { code:"104", zh:"觀塘 (循環線)",  en:"Kwun Tong (circular)" }
 };
 
+/* Emoji presentation: several pictographs (weather glyphs, 🏖 🏙 ⛱ ⚠ …) default to
+   monochrome *text* presentation and only turn into colour emoji with U+FE0F —
+   without it Windows/Chrome draws outline glyphs next to coloured ones. */
+const V = "\uFE0F";
+
 /* destination icon */
 const DEST_ICON = [
-  [/鑽石山/, "💎"], [/科技大學|HKUST/i, "🎓"], [/西貢/, "🏞"], [/清水灣/, "🏖"],
-  [/寶琳|寶林/, "🏙"], [/坑口/, "🏘"], [/彩虹|坪石/, "🚇"], [/觀塘/, "🏢"],
-  [/旺角/, "🛍"], [/尖沙咀/, "🌊"], [/黃石/, "⛱"], [/德福|九龍灣/, "🏬"]
+  [/鑽石山/, "💎"], [/科技大學|HKUST/i, "🎓"], [/西貢/, "🌴"], [/清水灣/, "🏖" + V],
+  [/寶琳|寶林/, "🏙" + V], [/坑口/, "🏡"], [/彩虹|坪石/, "🚇"], [/觀塘/, "🏢"],
+  [/旺角/, "🛒"], [/尖沙咀/, "🌊"], [/黃石/, "🚢"], [/德福|九龍灣/, "🏬"]
 ];
 const icon = s => (DEST_ICON.find(([re]) => re.test(s || "")) || [, "🚌"])[1];
 
@@ -378,11 +383,11 @@ const HKO = "https://data.weather.gov.hk/weatherAPI/opendata/weather.php?dataTyp
 /* HKO weather icon codes (hko.gov.hk/textonly/v2/explain/wxicon_e.htm):
    50-54 sunny→showers, 60-65 cloudy→thunderstorms, 70-77 clear/cloudy at night,
    80-85 windy/dry/humid/fog/mist/haze, 90-93 hot/warm/cool/cold */
-const ICON = { 50:"☀", 51:"🌤", 52:"⛅", 53:"🌦", 54:"🌦",
-  60:"☁", 61:"☁", 62:"🌦", 63:"🌧", 64:"🌧", 65:"⛈",
-  70:"🌙", 71:"🌙", 72:"🌙", 73:"🌙", 74:"🌙", 75:"🌙", 76:"☁", 77:"🌙",
-  80:"💨", 81:"☀", 82:"💧", 83:"🌫", 84:"🌫", 85:"🌫",
-  90:"🔥", 91:"🌤", 92:"🌥", 93:"❄" };
+const ICON = { 50:"☀"+V, 51:"🌤"+V, 52:"⛅"+V, 53:"🌦"+V, 54:"🌦"+V,
+  60:"☁"+V, 61:"☁"+V, 62:"🌦"+V, 63:"🌧"+V, 64:"🌧"+V, 65:"⛈"+V,
+  70:"🌙"+V, 71:"🌙"+V, 72:"🌙"+V, 73:"🌙"+V, 74:"🌙"+V, 75:"🌙"+V, 76:"☁"+V, 77:"🌙"+V,
+  80:"💨"+V, 81:"☀"+V, 82:"💧"+V, 83:"🌫"+V, 84:"🌫"+V, 85:"🌫"+V,
+  90:"🔥"+V, 91:"🌤"+V, 92:"🌥"+V, 93:"❄"+V };
 
 function badgeHTML(key, v){
   const [zh, base] = WARN[key] || [key, "b-grey"];
@@ -395,7 +400,7 @@ function badgeHTML(key, v){
     const no = (v.name || "").match(/No\.\s*(\d+)/);
     cls = no && Number(no[1]) >= 8 ? "b-red" : "b-blue";
   }
-  return `<span class="badge ${cls}">⚠ ${zh}${type ? " " + type : ""} <small>${v.name}</small></span>`;
+  return `<span class="badge ${cls}">⚠${V} ${zh}${type ? " " + type : ""} <small>${v.name}</small></span>`;
 }
 
 /* next few days: weekday, icon, min–max, probability of significant rain */
@@ -413,9 +418,9 @@ function renderForecast(list){
                     : psr.startsWith("medium") ? ' style="color:#ffe14d"' : "";
     return `<span class="d">
       <span class="r1"><span class="dw">${label}</span>
-        <span class="di">${ICON[x.ForecastIcon] || "🌡"}</span>
+        <span class="di">${ICON[x.ForecastIcon] || ("🌡" + V)}</span>
         <span class="dt">${x.forecastMintemp.value}–${x.forecastMaxtemp.value}°C</span></span>
-      <span class="wt">☔ <b${rainStyle}>${x.PSR}</b> · ${esc(x.forecastWeather)}</span>
+      <span class="wt">☔${V} <b${rainStyle}>${x.PSR}</b> · ${esc(x.forecastWeather)}</span>
     </span>`;
   }).join("");
   $("fc").innerHTML = `<span class="lbl">Forecast · 展望</span>${cells}`;
@@ -428,7 +433,7 @@ async function renderWeather(){
     const r = await getJSON(HKO + "rhrread&lang=en");
     const t = (r.temperature?.data || []).find(x => /sai kung/i.test(x.place));
     $("wxtemp").textContent = (t ? t.value : "–") + "°C";
-    $("wxicon").textContent = ICON[(r.icon || [])[0]] || "🌡";
+    $("wxicon").textContent = ICON[(r.icon || [])[0]] || ("🌡" + V);
     $("wxhum").textContent  = ((r.humidity?.data || [])[0]?.value ?? "–") + "%";
     const uv = (r.uvindex?.data || [])[0];
     $("wxuv").textContent = uv ? `${uv.value} ${uv.desc}` : "–";
@@ -447,7 +452,7 @@ async function renderWeather(){
     const html = Object.entries(w)
       .filter(([, v]) => v && v.name && v.actionCode !== "CANCEL")
       .map(([k, v]) => badgeHTML(k, v)).join("");
-    $("badges").innerHTML = html || `<span class="badge b-grey">No warning signal in force · 現無警告生效</span>`;
+    $("badges").innerHTML = html || `<span class="badge b-grey">✔${V} No warning signal in force · 現無警告生效</span>`;
   } catch(e){ failed.push("warnings"); }
 
   try {
